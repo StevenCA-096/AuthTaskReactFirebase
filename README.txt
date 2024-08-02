@@ -10,3 +10,6 @@ Para iniciar el proyecto del api y que funcione todo de el front seria a traves 
 
 Con el api habilitado sera posible levantar el front desde otra terminar, como siempre con npm install desde el sitio principal del proyecto, por lo que en terminal
 habra que revisar que no se este en el directorio del firebase-backend, de estarlo simplemente se retrocede con cd .. y ahora si se ejecuta npm install y npm run dev
+
+Tambien vale la pena mencionar, que muchos valores de los que estan expuetos, como el de google account lo estan por ser el entorno de pruebas pero realmente no deberian de estar en este espacio
+sino en variiables de entorno o espacios privados que algunos hosting brindan como los secret vaults.
