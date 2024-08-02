@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, CssBaseline, Box, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, CssBaseline, Box, Typography, Button, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ const BasicLayout = () => {
   const authStatus = useSelector((state) => state.auth)
   const authDispatch = useDispatch()
   const navigate = useNavigate()
-  const handleLogout =()=>{
+  const handleLogout = () => {
     authDispatch(setNotLogged())
   }
 
@@ -39,6 +39,7 @@ const BasicLayout = () => {
 
   useEffect(() => {
     if (authStatus.isAuthenticated) {
+      console.log(authStatus)
       setMenuItems(menuItemsLogged)
     } else {
       setMenuItems(menuItemsNotLogged)
@@ -90,6 +91,9 @@ const BasicLayout = () => {
               >
                 <MenuIcon />
               </IconButton>
+            </ListItem>
+            <ListItem>
+              <ListItemText primary={authStatus.user.email} secondary="Usuario en sesion."/>
             </ListItem>
             {
               menuItems.map(item =>
