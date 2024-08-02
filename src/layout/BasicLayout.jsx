@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNotLogged } from '../redux/authSlice';
+import UpdateUser from '../pages/users/components/UpdateUser';
 const BasicLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const authStatus = useSelector((state) => state.auth)
@@ -32,6 +33,10 @@ const BasicLayout = () => {
     {
       url: "/",
       title: "Lista de tareas"
+    },
+    {
+      url: "/listUsers",
+      title: "Usuarios"
     },
 
   ]
@@ -68,7 +73,7 @@ const BasicLayout = () => {
         </Toolbar>
       </AppBar>
       <Drawer
-        variant='persistent'
+        variant='temporary'
         anchor="left"
         open={drawerOpen}
         onClose={toggleDrawer}
@@ -92,9 +97,18 @@ const BasicLayout = () => {
                 <MenuIcon />
               </IconButton>
             </ListItem>
-            <ListItem>
-              <ListItemText primary={authStatus.user.email} secondary="Usuario en sesion."/>
-            </ListItem>
+            {
+              authStatus.isAuthenticated ? (
+                <>
+                  <ListItem>
+                    <ListItemText primary={authStatus.user.email} secondary="Usuario en sesion." />
+                  </ListItem>
+                
+                </>
+
+              ) : (null)
+            }
+
             {
               menuItems.map(item =>
                 <ListItem key={item.url}>

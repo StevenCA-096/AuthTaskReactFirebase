@@ -1,17 +1,14 @@
 import { Expand } from '@mui/icons-material'
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Stack, TextField } from '@mui/material'
-import { addDoc, collection } from 'firebase/firestore'
 import React, { useState } from 'react'
-import { dbFirestore } from '../../../firebaseConfig/firebaseconfig'
+import { saveTask } from '../../../services/tasksService'
 
 const CreateTask = ({callbackGet}) => {
   const [name, setName] = useState('')
-
-  const taskCollection = collection(dbFirestore, "tasks")
-
+  
   const save = async(event)=>{
     event.preventDefault()
-    await addDoc(taskCollection, {name: name})
+    await saveTask(name)
     await callbackGet()
     setName('')
   }

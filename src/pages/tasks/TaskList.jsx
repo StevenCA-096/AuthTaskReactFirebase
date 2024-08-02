@@ -2,20 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from "react-redux";
 import { Box, Button, Grid, IconButton, List, ListItem, ListItemText, } from "@mui/material";
 import CreateTask from './components/CreateTask';
-import { getDocs, collection, getDoc, deleteDoc } from 'firebase/firestore';
-import { dbFirestore } from '../../firebaseConfig/firebaseconfig';
 import DeleteTask from './components/DeleteTask';
 import { useNavigate } from 'react-router-dom';
+import { getAllTasks } from '../../services/tasksService';
 
 const TaskList = () => {
   const authStatus = useSelector((state) => state.auth)
 
   const [tasks, setTasks] = useState([])
 
-  const tasksCollection = collection(dbFirestore, "tasks")
 
   const getTasks = async () => {
-    const data = await getDocs(tasksCollection)
+    const data = await getAllTasks()
     setTasks(
       data.docs.map((doc) => ({ ...doc.data(), id: doc.id })
       ))

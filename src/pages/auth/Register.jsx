@@ -24,7 +24,8 @@ const Register = () => {
             setisLoadingRegister(false)
 
             return Swal.fire({
-                title: "La contraseña debe tener al menos 6 caracteres"
+                title: "La contraseña debe tener al menos 6 caracteres",
+                icon:"warning"
             })
         }
         try {
@@ -35,7 +36,8 @@ const Register = () => {
             console.log(user)
             if (user) {
                 Swal.fire({
-                    title:"Registro exitoso!"
+                    title:"Registro exitoso!",
+                    icon:"success"
                 })
             }
         } catch (error) {
@@ -74,6 +76,7 @@ const Register = () => {
                             label="Usuario"
                             variant="outlined"
                             required
+                            type='email'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
