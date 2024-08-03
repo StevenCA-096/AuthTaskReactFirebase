@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs } from "firebase/firestore"
+import { addDoc, collection, doc, getDocs, updateDoc } from "firebase/firestore"
 import { dbFirestore } from "../firebaseConfig/firebaseconfig"
 
 const tasksCollection = collection(dbFirestore, "tasks")
@@ -9,6 +9,18 @@ export const getAllTasks = async () => {
 }
 
 export const saveTask = async(name) => {
-    const result = await addDoc(tasksCollection, {name: name})
+    const result = await addDoc(tasksCollection, {name: name, done: false})
     return result
+}
+
+export const updateTask = async(id,done) => {
+    console.log(id + " "+ done)
+    const docRef = doc(dbFirestore, "tasks", id)
+    try {
+        const result = await updateDoc(docRef, { "done": done})
+        return result
+    } catch (error) {
+        console.log("error: "+ error)
+    }
+   
 }
